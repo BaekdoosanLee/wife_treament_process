@@ -251,24 +251,12 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
       </div>
     </div>
 
-    <div class="status">
-      <div class="stat"><div class="stat-k">수술 후 경과</div><div class="stat-v">5년</div></div>
-      <div class="stat"><div class="stat-k">잔존 종양</div><div class="stat-v warn">크기 증가 확인</div></div>
-      <div class="stat"><div class="stat-k">권고 방향</div><div class="stat-v act">방사선수술 검토</div></div>
-      <div class="stat"><div class="stat-k">현재 치료</div><div class="stat-v">호르몬 대체요법 지속</div></div>
-    </div>
+    <div class="status" id="status-cards"></div>
   </div>
 </header>
 
 <nav class="tabs">
-  <div class="tabs-inner" role="tablist">
-    <button type="button" class="tab" role="tab" aria-selected="true" aria-controls="p1" id="t1">치료 경과</button>
-    <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2">검사 방법</button>
-    <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3">치료 옵션</button>
-    <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="p4" id="t4">고민할 것</button>
-    <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="p5" id="t5">진료 질문</button>
-    <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="p6" id="t6">추가 검토</button>
-  </div>
+  <div class="tabs-inner" role="tablist" id="tab-list"></div>
 </nav>
 
 <main class="wrap">
@@ -277,33 +265,7 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
 <section class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
   <h2>지금까지의 치료 경과</h2>
   <p class="lead">수술 시점부터 오늘까지의 흐름</p>
-  <div class="tl">
-    <div class="tl-item">
-      <div class="tl-when">0Y · 수술</div>
-      <div class="tl-what">뇌하수체 종양 절제 수술 시행</div>
-      <div class="tl-note">혈관에 인접한 부위는 제거하지 못하고 잔존 — 추적관찰 대상으로 남김</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-when">0Y~ · 약물</div>
-      <div class="tl-what">호르몬 대체요법 시작</div>
-      <div class="tl-note">수술 이후 호르몬제 복용을 현재까지 지속 중</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-when">1Y–4Y · 관찰</div>
-      <div class="tl-what">정기 MRI 추적관찰</div>
-      <div class="tl-note">잔존 종양의 크기 변화를 주기적으로 확인</div>
-    </div>
-    <div class="tl-item now">
-      <div class="tl-when">5Y · 오늘</div>
-      <div class="tl-what">MRI 재촬영 — 잔존 종양 크기 증가 확인</div>
-      <div class="tl-note">시신경에 가까워지기 전에 방사선수술을 시행하는 방향이 제시됨</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-when">NEXT · 결정</div>
-      <div class="tl-what">치료 방식 · 시점 결정 단계</div>
-      <div class="tl-note">방사선수술 종류 선택, 2차 소견 여부, 시행 시기를 정하는 구간</div>
-    </div>
-  </div>
+  <div class="tl" id="timeline"></div>
 </section>
 
 <!-- 2 -->
@@ -344,60 +306,7 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
   <h2>치료 방법의 종류</h2>
   <p class="lead">각 항목을 눌러 특징 · 장점 · 단점을 펼쳐보세요. 어떤 방식이 적합한지는 종양 크기와 시신경까지의 거리에 따라 담당의가 판단합니다.</p>
 
-  <div class="opt">
-    <button type="button" class="opt-btn" aria-expanded="false" aria-controls="o1">
-      <span class="opt-name">감마나이프</span><span class="opt-tag a">1회 시행</span><span class="chev">▾</span>
-    </button>
-    <div class="opt-body" id="o1" hidden>
-      <div class="opt-row"><span class="opt-lab how">방식</span><div>여러 방향에서 감마선을 한 지점에 집중 조사. 통상 1회로 마무리</div></div>
-      <div class="opt-row"><span class="opt-lab plus">장점</span><div>절개 없는 비침습적 시술, 당일 시행 가능, 주변 정상 조직 손상을 최소화</div></div>
-      <div class="opt-row"><span class="opt-lab minus">단점</span><div>시신경과 거리가 가까우면 위험도가 올라가 적용이 제한될 수 있음. 효과가 나타나기까지 수개월~수년 소요</div></div>
-    </div>
-  </div>
-
-  <div class="opt">
-    <button class="opt-btn" aria-expanded="false" aria-controls="o2">
-      <span class="opt-name">사이버나이프</span><span class="opt-tag a">분할 가능</span><span class="chev">▾</span>
-    </button>
-    <div class="opt-body" id="o2" hidden>
-      <div class="opt-row"><span class="opt-lab how">방식</span><div>로봇팔이 위치를 추적하며 방사선을 조사. 1회 또는 여러 회로 나눠 시행 가능</div></div>
-      <div class="opt-row"><span class="opt-lab plus">장점</span><div>실시간 위치 보정으로 정밀 조사, 분할 시행이 가능해 시신경 인접 상황에서도 선택지가 됨</div></div>
-      <div class="opt-row"><span class="opt-lab minus">단점</span><div>여러 회 통원이 필요할 수 있음, 1회당 조사 선량은 감마나이프보다 낮음</div></div>
-    </div>
-  </div>
-
-  <div class="opt">
-    <button class="opt-btn" aria-expanded="false" aria-controls="o3">
-      <span class="opt-name">분할 방사선치료</span><span class="opt-tag a">수 주 소요</span><span class="chev">▾</span>
-    </button>
-    <div class="opt-body" id="o3" hidden>
-      <div class="opt-row"><span class="opt-lab how">방식</span><div>총 선량을 여러 회에 나눠 조사. 수 주에 걸쳐 진행</div></div>
-      <div class="opt-row"><span class="opt-lab plus">장점</span><div>시신경처럼 방사선에 민감한 구조물이 가까울 때 안전 여유를 확보하기 유리</div></div>
-      <div class="opt-row"><span class="opt-lab minus">단점</span><div>치료 기간이 길고 통원 부담이 큼, 일상·업무 일정 조율 필요</div></div>
-    </div>
-  </div>
-
-  <div class="opt">
-    <button class="opt-btn" aria-expanded="false" aria-controls="o4">
-      <span class="opt-name">재수술</span><span class="opt-tag b">침습적</span><span class="chev">▾</span>
-    </button>
-    <div class="opt-body" id="o4" hidden>
-      <div class="opt-row"><span class="opt-lab how">방식</span><div>잔존 종양의 추가 절제를 시도</div></div>
-      <div class="opt-row"><span class="opt-lab plus">장점</span><div>성공 시 종양 부피를 즉각적으로 줄일 수 있음</div></div>
-      <div class="opt-row"><span class="opt-lab minus">단점</span><div>이번 잔존 부위는 혈관 인접으로 1차 수술에서도 제거하지 못한 위치. 수술 위험과 회복 부담이 큼</div></div>
-    </div>
-  </div>
-
-  <div class="opt">
-    <button class="opt-btn" aria-expanded="false" aria-controls="o5">
-      <span class="opt-name">관찰 지속</span><span class="opt-tag b">시기 위험</span><span class="chev">▾</span>
-    </button>
-    <div class="opt-body" id="o5" hidden>
-      <div class="opt-row"><span class="opt-lab how">방식</span><div>치료 없이 MRI 추적관찰을 이어감</div></div>
-      <div class="opt-row"><span class="opt-lab plus">장점</span><div>당장의 시술 위험이 없고 비침습적</div></div>
-      <div class="opt-row"><span class="opt-lab minus">단점</span><div>이미 성장이 확인된 상태이므로, 시신경 침범 전에 치료할 수 있는 시점을 놓칠 위험</div></div>
-    </div>
-  </div>
+  <div id="options"></div>
 
   <div class="note">
     <strong>참고</strong> — 방사선수술의 목표는 대개 종양을 완전히 없애는 것이 아니라 <strong>더 이상 자라지 않도록 성장을 억제</strong>하는 것입니다. 이 목표 설정을 담당의와 먼저 맞춰두면 이후 추적 결과를 해석하기 쉬워집니다.
@@ -414,15 +323,7 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
     <div class="count-num" data-num="c4">0 / 0</div>
   </div>
 
-  <div class="check" data-check="c4">
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">종양과 시신경 사이에 남은 거리 파악</span><span class="ci-sub">치료 방식 선택의 가장 큰 기준</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">1회 시술과 분할 치료 중 생활 여건에 맞는 쪽 판단</span><span class="ci-sub">통원 횟수, 회복 기간, 업무 일정 고려</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 후 호르몬 기능이 추가로 떨어질 가능성 확인</span><span class="ci-sub">이미 호르몬제를 복용 중이므로 어느 축이 영향받는지 확인 필요</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">지금 시행할지, 조금 더 관찰할지 비교</span><span class="ci-sub">각 선택의 위험과 이득을 담당의에게 수치로 요청</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">2차 소견을 받을지 결정</span><span class="ci-sub">불신이 아니라 확인 차원 — 큰 결정 앞에서는 일반적인 절차</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">회복 기간과 업무·은퇴 계획의 조율</span><span class="ci-sub">필요한 휴가나 근무 조정 범위를 미리 가늠</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">비용과 실손보험 적용 범위 확인</span><span class="ci-sub">시술 종류에 따라 부담이 달라짐</span></span></label>
-  </div>
+  <div class="check" id="checklist-c4" data-check="c4"></div>
 
   <div class="note">
     급성 응급 상황이 아니라면 결정까지 대개 어느 정도 시간 여유가 있습니다. <strong>조급하게 정하기보다 필요한 정보를 다 모은 뒤 결정</strong>하는 편이 낫습니다. 다만 여유가 얼마나 되는지는 담당의에게 직접 확인하세요.
@@ -439,36 +340,7 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
     <div class="count-num" data-num="c5">0 / 0</div>
   </div>
 
-  <div class="group-h">영상 결과</div>
-  <div class="check" data-check="c5">
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">현재 종양 크기와 시신경까지의 거리는 몇 mm인가요?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">이전 검사 대비 얼마나 커졌고, 성장 속도는 빠른 편인가요?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">판독 소견서 사본과 영상 자료(CD)를 받을 수 있을까요?</span></span></label>
-  </div>
-
-  <div class="group-h">치료 방식</div>
-  <div class="check" data-check="c5" style="margin-top:0">
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">이 병원에서 시행 가능한 방사선수술 종류는 무엇인가요?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">제 경우에는 어떤 방식을 권하시는지, 그 근거는 무엇인가요?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 목표는 종양 소실인가요, 성장 억제인가요?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">효과가 확인되기까지 얼마나 걸리나요?</span></span></label>
-  </div>
-
-  <div class="group-h">시기와 위험</div>
-  <div class="check" data-check="c5" style="margin-top:0">
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">지금 시행하는 것과 몇 개월 더 관찰하는 것의 위험 차이는?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술로 인해 시신경이나 정상 뇌하수체가 영향받을 확률은?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">호르몬 기능이 추가로 떨어질 가능성과 대비 방법은?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">2차 소견을 받아보는 게 좋을 상황인가요?</span></span></label>
-  </div>
-
-  <div class="group-h">일정과 이후 관리</div>
-  <div class="check" data-check="c5" style="margin-top:0">
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 전 필요한 추가 검사(시야검사, 혈액검사 등)는 무엇인가요?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">입원이 필요한가요? 회복 기간과 업무 복귀 시점은?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 후 MRI와 호르몬 검사는 어떤 주기로 하나요?</span></span></label>
-    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">감염이나 사고 등 응급 상황에서 약 조절이 필요한 기준은?</span></span></label>
-  </div>
+  <div id="checklist-c5"></div>
 
   <div class="tools">
     <button type="button" class="btn" onclick="window.print()">이 화면 인쇄</button>
@@ -516,84 +388,261 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
 </main>
 
 <script>
-// scale ticks
-const ticks = document.getElementById('ticks');
-for(let i=0;i<61;i++){
-  const d=document.createElement('div');
-  d.className='tick'+(i%12===0?' major':'');
-  ticks.appendChild(d);
-}
-
-// scale ticks
-const ticks = document.getElementById('ticks');
-for (let i = 0; i < 61; i++) {
-  ticks.insertAdjacentHTML('beforeend', `<div class="tick${i % 12 === 0 ? ' major' : ''}"></div>`);
-}
-
-// tabs
-const tabs = Array.from(document.querySelectorAll('.tab'));
-const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
-
-tabs.forEach((tab, index) => {
-  tab.addEventListener('click', () => select(index));
-  tab.addEventListener('keydown', event => {
-    const target = event.key === 'ArrowRight'
-      ? (index + 1) % tabs.length
-      : event.key === 'ArrowLeft'
-        ? (index - 1 + tabs.length) % tabs.length
-        : null;
-
-    if (target !== null) {
-      event.preventDefault();
-      select(target);
-      tabs[target].focus();
+const dashboard = {
+  statusCards: [
+    { label: '수술 후 경과', value: '5년' },
+    { label: '잔존 종양', value: '크기 증가 확인', tone: 'warn' },
+    { label: '권고 방향', value: '방사선수술 검토', tone: 'act' },
+    { label: '현재 치료', value: '호르몬 대체요법 지속' }
+  ],
+  tabs: [
+    { id: 'p1', title: '치료 경과' },
+    { id: 'p2', title: '검사 방법' },
+    { id: 'p3', title: '치료 옵션' },
+    { id: 'p4', title: '고민할 것' },
+    { id: 'p5', title: '진료 질문' },
+    { id: 'p6', title: '추가 검토' }
+  ],
+  timeline: [
+    { when: '0Y · 수술', what: '뇌하수체 종양 절제 수술 시행', note: '혈관에 인접한 부위는 제거하지 못하고 잔존 — 추적관찰 대상으로 남김' },
+    { when: '0Y~ · 약물', what: '호르몬 대체요법 시작', note: '수술 이후 호르몬제 복용을 현재까지 지속 중' },
+    { when: '1Y–4Y · 관찰', what: '정기 MRI 추적관찰', note: '잔존 종양의 크기 변화를 주기적으로 확인' },
+    { when: '5Y · 오늘', what: 'MRI 재촬영 — 잔존 종양 크기 증가 확인', note: '시신경에 가까워지기 전에 방사선수술을 시행하는 방향이 제시됨', current: true },
+    { when: 'NEXT · 결정', what: '치료 방식 · 시점 결정 단계', note: '방사선수술 종류 선택, 2차 소견 여부, 시행 시기를 정하는 구간' }
+  ],
+  options: [
+    {
+      name: '감마나이프', tag: '1회 시행', tagType: 'a', details: [
+        { label: '방식', text: '여러 방향에서 감마선을 한 지점에 집중 조사. 통상 1회로 마무리' },
+        { label: '장점', text: '절개 없는 비침습적 시술, 당일 시행 가능, 주변 정상 조직 손상을 최소화' },
+        { label: '단점', text: '시신경과 거리가 가까우면 위험도가 올라가 적용이 제한될 수 있음. 효과가 나타나기까지 수개월~수년 소요' }
+      ]
+    },
+    {
+      name: '사이버나이프', tag: '분할 가능', tagType: 'a', details: [
+        { label: '방식', text: '로봇팔이 위치를 추적하며 방사선을 조사. 1회 또는 여러 회로 나눠 시행 가능' },
+        { label: '장점', text: '실시간 위치 보정으로 정밀 조사, 분할 시행이 가능해 시신경 인접 상황에서도 선택지가 됨' },
+        { label: '단점', text: '여러 회 통원이 필요할 수 있음, 1회당 조사 선량은 감마나이프보다 낮음' }
+      ]
+    },
+    {
+      name: '분할 방사선치료', tag: '수 주 소요', tagType: 'a', details: [
+        { label: '방식', text: '총 선량을 여러 회에 나눠 조사. 수 주에 걸쳐 진행' },
+        { label: '장점', text: '시신경처럼 방사선에 민감한 구조물이 가까울 때 안전 여유를 확보하기 유리' },
+        { label: '단점', text: '치료 기간이 길고 통원 부담이 큼, 일상·업무 일정 조율 필요' }
+      ]
+    },
+    {
+      name: '재수술', tag: '침습적', tagType: 'b', details: [
+        { label: '방식', text: '잔존 종양의 추가 절제를 시도' },
+        { label: '장점', text: '성공 시 종양 부피를 즉각적으로 줄일 수 있음' },
+        { label: '단점', text: '이번 잔존 부위는 혈관 인접으로 1차 수술에서도 제거하지 못한 위치. 수술 위험과 회복 부담이 큼' }
+      ]
+    },
+    {
+      name: '관찰 지속', tag: '시기 위험', tagType: 'b', details: [
+        { label: '방식', text: '치료 없이 MRI 추적관찰을 이어감' },
+        { label: '장점', text: '당장의 시술 위험이 없고 비침습적' },
+        { label: '단점', text: '이미 성장이 확인된 상태이므로, 시신경 침범 전에 치료할 수 있는 시점을 놓칠 위험' }
+      ]
     }
-  });
-});
+  ],
+  checklists: {
+    c4: [
+      { text: '종양과 시신경 사이에 남은 거리 파악', sub: '치료 방식 선택의 가장 큰 기준' },
+      { text: '1회 시술과 분할 치료 중 생활 여건에 맞는 쪽 판단', sub: '통원 횟수, 회복 기간, 업무 일정 고려' },
+      { text: '시술 후 호르몬 기능이 추가로 떨어질 가능성 확인', sub: '이미 호르몬제를 복용 중이므로 어느 축이 영향받는지 확인 필요' },
+      { text: '지금 시행할지, 조금 더 관찰할지 비교', sub: '각 선택의 위험과 이득을 담당의에게 수치로 요청' },
+      { text: '2차 소견을 받을지 결정', sub: '불신이 아니라 확인 차원 — 큰 결정 앞에서는 일반적인 절차' },
+      { text: '회복 기간과 업무·은퇴 계획의 조율', sub: '필요한 휴가나 근무 조정 범위를 미리 가늠' },
+      { text: '비용과 실손보험 적용 범위 확인', sub: '시술 종류에 따라 부담이 달라짐' }
+    ],
+    c5: [
+      { heading: '영상 결과' },
+      { text: '현재 종양 크기와 시신경까지의 거리는 몇 mm인가요?' },
+      { text: '이전 검사 대비 얼마나 커졌고, 성장 속도는 빠른 편인가요?' },
+      { text: '판독 소견서 사본과 영상 자료(CD)를 받을 수 있을까요?' },
+      { heading: '치료 방식' },
+      { text: '이 병원에서 시행 가능한 방사선수술 종류는 무엇인가요?' },
+      { text: '제 경우에는 어떤 방식을 권하시는지, 그 근거는 무엇인가요?' },
+      { text: '시술 목표는 종양 소실인가요, 성장 억제인가요?' },
+      { text: '효과가 확인되기까지 얼마나 걸리나요?' },
+      { heading: '시기와 위험' },
+      { text: '지금 시행하는 것과 몇 개월 더 관찰하는 것의 위험 차이는?' },
+      { text: '시술로 인해 시신경이나 정상 뇌하수체가 영향받을 확률은?' },
+      { text: '호르몬 기능이 추가로 떨어질 가능성과 대비 방법은?' },
+      { text: '2차 소견을 받아보는 게 좋을 상황인가요?' },
+      { heading: '일정과 이후 관리' },
+      { text: '시술 전 필요한 추가 검사(시야검사, 혈액검사 등)는 무엇인가요?' },
+      { text: '입원이 필요한가요? 회복 기간과 업무 복귀 시점은?' },
+      { text: '시술 후 MRI와 호르몬 검사는 어떤 주기로 하나요?' },
+      { text: '감염이나 사고 등 응급 상황에서 약 조절이 필요한 기준은?' }
+    ]
+  }
+};
 
-function select(index) {
+function renderStatusCards() {
+  const container = document.getElementById('status-cards');
+  if (!container) return;
+  container.innerHTML = dashboard.statusCards.map(card => {
+    const toneClass = card.tone ? ` ${card.tone}` : '';
+    return `
+      <div class="stat">
+        <div class="stat-k">${card.label}</div>
+        <div class="stat-v${toneClass}">${card.value}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderTabs() {
+  const tabList = document.getElementById('tab-list');
+  if (!tabList) return;
+  tabList.innerHTML = dashboard.tabs.map((tab, index) => `
+    <button type="button" class="tab" role="tab" aria-selected="${index === 0}" aria-controls="${tab.id}" id="t${index + 1}">${tab.title}</button>
+  `).join('');
+}
+
+function renderTimeline() {
+  const container = document.getElementById('timeline');
+  if (!container) return;
+  container.innerHTML = dashboard.timeline.map(item => `
+    <div class="tl-item${item.current ? ' now' : ''}">
+      <div class="tl-when">${item.when}</div>
+      <div class="tl-what">${item.what}</div>
+      <div class="tl-note">${item.note}</div>
+    </div>
+  `).join('');
+}
+
+function renderOptions() {
+  const container = document.getElementById('options');
+  if (!container) return;
+  container.innerHTML = dashboard.options.map((option, index) => `
+    <div class="opt">
+      <button type="button" class="opt-btn" aria-expanded="false" aria-controls="o${index + 1}">
+        <span class="opt-name">${option.name}</span>
+        <span class="opt-tag ${option.tagType}">${option.tag}</span>
+        <span class="chev">▾</span>
+      </button>
+      <div class="opt-body" id="o${index + 1}" hidden>
+        ${option.details.map(detail => `
+          <div class="opt-row">
+            <span class="opt-lab ${detail.label === '장점' ? 'plus' : detail.label === '단점' ? 'minus' : 'how'}">${detail.label}</span>
+            <div>${detail.text}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderChecklist(group) {
+  const container = document.getElementById(`checklist-${group}`);
+  if (!container) return;
+
+  if (group === 'c4') {
+    container.innerHTML = dashboard.checklists.c4.map(item => `
+      <label class="ci">
+        <input type="checkbox">
+        <span class="ci-body">
+          <span class="ci-txt">${item.text}</span>
+          <span class="ci-sub">${item.sub}</span>
+        </span>
+      </label>
+    `).join('');
+  } else {
+    let html = '';
+    dashboard.checklists.c5.forEach(item => {
+      if (item.heading) {
+        html += `<div class="group-h">${item.heading}</div>`;
+      } else {
+        html += `
+          <label class="ci">
+            <input type="checkbox">
+            <span class="ci-body"><span class="ci-txt">${item.text}</span></span>
+          </label>`;
+      }
+    });
+    container.innerHTML = html;
+  }
+}
+
+function wireTabs() {
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectTab(index, tabs, panels));
+    tab.addEventListener('keydown', event => {
+      const target = event.key === 'ArrowRight'
+        ? (index + 1) % tabs.length
+        : event.key === 'ArrowLeft'
+          ? (index - 1 + tabs.length) % tabs.length
+          : null;
+
+      if (target !== null) {
+        event.preventDefault();
+        selectTab(target, tabs, panels);
+        tabs[target].focus();
+      }
+    });
+  });
+}
+
+function selectTab(index, tabs, panels) {
   tabs.forEach((tab, tabIndex) => {
-    const panel = panels[tabIndex];
     const active = tabIndex === index;
     tab.setAttribute('aria-selected', active);
-    panel.hidden = !active;
+    panels[tabIndex].hidden = !active;
   });
 }
 
-// accordion
-const options = document.querySelectorAll('.opt-btn');
-options.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!open));
-    document.getElementById(btn.getAttribute('aria-controls')).hidden = open;
+function wireAccordion() {
+  document.querySelectorAll('.opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      btn.setAttribute('aria-expanded', String(!open));
+      panel.hidden = open;
+    });
   });
-});
+}
 
-// checklist counters
-const groups = ['c4', 'c5'];
+function wireChecklistCounters() {
+  ['c4', 'c5'].forEach(group => {
+    const checkboxes = Array.from(document.querySelectorAll(`#checklist-${group} input[type="checkbox"]`));
+    const resetButtons = document.querySelectorAll(`[data-reset="${group}"]`);
 
-groups.forEach(group => {
-  const checkboxes = Array.from(document.querySelectorAll(`[data-check="${group}"] input`));
-  const resets = document.querySelectorAll(`[data-reset="${group}"]`);
+    function update() {
+      const done = checkboxes.filter(box => box.checked).length;
+      const total = checkboxes.length;
+      const width = total ? (done / total) * 100 : 0;
+      document.querySelectorAll(`[data-num="${group}"]`).forEach(el => el.textContent = `${done} / ${total}`);
+      document.querySelectorAll(`[data-fill="${group}"]`).forEach(el => el.style.width = `${width}%`);
+    }
 
-  function update() {
-    const done = checkboxes.filter(box => box.checked).length;
-    const total = checkboxes.length;
-    const width = total ? (done / total) * 100 : 0;
-
-    document.querySelectorAll(`[data-num="${group}"]`).forEach(el => el.textContent = `${done} / ${total}`);
-    document.querySelectorAll(`[data-fill="${group}"]`).forEach(el => el.style.width = `${width}%`);
-  }
-
-  checkboxes.forEach(input => input.addEventListener('change', update));
-  resets.forEach(btn => btn.addEventListener('click', () => {
-    checkboxes.forEach(input => { input.checked = false; });
+    checkboxes.forEach(box => box.addEventListener('change', update));
+    resetButtons.forEach(button => button.addEventListener('click', () => {
+      checkboxes.forEach(box => { box.checked = false; });
+      update();
+    }));
     update();
-  }));
+  });
+}
 
-  update();
-});
+function initDashboard() {
+  renderStatusCards();
+  renderTabs();
+  renderTimeline();
+  renderOptions();
+  renderChecklist('c4');
+  renderChecklist('c5');
+  wireTabs();
+  wireAccordion();
+  wireChecklistCounters();
+}
+
+initDashboard();
 </script>
 </body>
 </html>
