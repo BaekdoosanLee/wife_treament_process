@@ -2,235 +2,212 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>뇌하수체 추적관찰 · 치료 의사결정 대시보드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>뇌하수체 추적관찰 · 노발리스 방사선수술 대시보드</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0E1419;
-  --panel:#161E26;
-  --panel-2:#1B252F;
-  --line:#26333F;
-  --line-soft:#1F2A34;
-  --ink:#E4EBF1;
-  --ink-dim:#A9BCCB;
-  --muted:#7B8FA0;
-  --cyan:#5CD4E0;
-  --cyan-dim:#2E7A83;
-  --amber:#E8A33D;
-  --rose:#E2687A;
-  --green:#6FCF97;
-  --radius:10px;
+  --bg:#0E1419; --panel:#161E26; --panel-2:#1B252F;
+  --line:#26333F; --line-soft:#1F2A34;
+  --ink:#E4EBF1; --ink-dim:#A9BCCB; --muted:#7B8FA0;
+  --cyan:#5CD4E0; --cyan-dim:#2E7A83;
+  --amber:#E8A33D; --amber-dim:#7A5A24;
+  --rose:#E2687A; --green:#6FCF97;
+  --r:10px;
+  --pad:clamp(16px,4vw,20px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
-  background:var(--bg);
-  color:var(--ink);
+  background:var(--bg);color:var(--ink);
   font-family:'IBM Plex Sans KR',system-ui,-apple-system,sans-serif;
-  font-weight:400;
-  line-height:1.65;
-  padding:0 0 64px;
-  min-height:100vh;
+  line-height:1.65;padding:0 0 clamp(40px,10vw,64px);
+  overflow-x:hidden;
 }
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--pad)}
 
 /* ---------- Header ---------- */
-header{
-  border-bottom:1px solid var(--line);
-  background:linear-gradient(180deg,#111A22 0%,#0E1419 100%);
-  padding:34px 0 0;
-}
-.eyebrow{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--cyan);margin-bottom:12px;
-}
-h1{
-  font-size:clamp(24px,4.2vw,38px);
-  font-weight:600;letter-spacing:-.02em;line-height:1.25;
-}
-.sub{color:var(--ink-dim);font-size:15px;margin-top:10px;max-width:60ch;font-weight:300}
+header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#111A22,#0E1419);padding:clamp(22px,5vw,34px) 0 0}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:clamp(9.5px,2.4vw,11px);
+  letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
+h1{font-size:clamp(21px,5vw,36px);font-weight:600;letter-spacing:-.02em;line-height:1.28}
+.sub{color:var(--ink-dim);font-size:clamp(13.5px,3.2vw,15px);margin-top:10px;max-width:62ch;font-weight:300}
 
-/* signature: scan scale bar */
-.scale{margin:28px 0 0;position:relative}
-.scale-ticks{display:flex;align-items:flex-end;height:26px;gap:0;border-bottom:1px solid var(--line)}
-.tick{flex:1;border-left:1px solid var(--line-soft);height:7px}
-.tick.major{height:15px;border-left-color:var(--cyan-dim)}
+.scale{margin:clamp(20px,5vw,28px) 0 0;position:relative}
+.scale-ticks{display:flex;align-items:flex-end;height:24px;border-bottom:1px solid var(--line)}
+.tick{flex:1;border-left:1px solid var(--line-soft);height:6px}
+.tick.major{height:14px;border-left-color:var(--cyan-dim)}
 .scale-marks{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;
-  font-size:10.5px;color:var(--muted);padding-top:7px;letter-spacing:.06em}
-.reticle{
-  position:absolute;right:0;bottom:22px;width:1px;height:34px;background:var(--amber);
-}
-.reticle::after{
-  content:'';position:absolute;left:-4px;top:-4px;width:9px;height:9px;
-  border:1px solid var(--amber);border-radius:50%;background:var(--bg);
-}
-.reticle-label{
-  position:absolute;right:0;bottom:60px;font-family:'JetBrains Mono',monospace;
-  font-size:10.5px;color:var(--amber);letter-spacing:.08em;white-space:nowrap;
-}
+  font-size:clamp(9px,2.2vw,10.5px);color:var(--muted);padding-top:6px;letter-spacing:.05em}
+.reticle{position:absolute;right:0;bottom:20px;width:1px;height:32px;background:var(--amber)}
+.reticle::after{content:'';position:absolute;left:-4px;top:-4px;width:9px;height:9px;
+  border:1px solid var(--amber);border-radius:50%;background:var(--bg)}
+.reticle-label{position:absolute;right:0;bottom:56px;font-family:'JetBrains Mono',monospace;
+  font-size:clamp(9px,2.2vw,10.5px);color:var(--amber);letter-spacing:.07em;white-space:nowrap}
 
-.status{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:0;
-  margin-top:26px;
-  border-top:1px solid var(--line);
-}
-.stat{
-  min-height:108px;
-  padding:20px 22px 20px;
-  border-right:1px solid var(--line);
-}
+.status{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  margin-top:clamp(18px,4vw,26px);border-top:1px solid var(--line)}
+.stat{padding:14px 0 16px;border-right:1px solid var(--line);padding-left:0}
+.stat+.stat{padding-left:18px}
 .stat:last-child{border-right:0}
-.stat-k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.stat-v{font-size:16px;font-weight:500;letter-spacing:-.01em}
-.stat-v.warn{color:var(--amber)}
-.stat-v.act{color:var(--cyan)}
-
-@media(max-width:640px){
-  .status{grid-template-columns:1fr}
-}
+.stat-k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.stat-v{font-size:clamp(14px,3.4vw,16px);font-weight:500;letter-spacing:-.01em;line-height:1.4}
+.stat-v.warn{color:var(--amber)} .stat-v.act{color:var(--cyan)}
 
 /* ---------- Tabs ---------- */
-nav.tabs{
-  position:sticky;top:0;z-index:20;background:rgba(14,20,25,.94);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
-}
-.tabs-inner{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:0 20px;max-width:1120px;margin:0 auto}
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(14,20,25,.95);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.tabs-inner{display:flex;gap:1px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  padding:0 var(--pad);max-width:1120px;margin:0 auto}
 .tabs-inner::-webkit-scrollbar{display:none}
-.tab{
-  background:none;border:0;border-bottom:2px solid transparent;
-  color:var(--muted);font-family:inherit;font-size:14px;font-weight:500;
-  padding:15px 16px;cursor:pointer;white-space:nowrap;transition:color .18s,border-color .18s;
-}
+.tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);
+  font-family:inherit;font-size:clamp(13px,3.2vw,14px);font-weight:500;
+  padding:14px 13px;cursor:pointer;white-space:nowrap;transition:color .18s,border-color .18s}
 .tab:hover{color:var(--ink-dim)}
 .tab[aria-selected="true"]{color:var(--cyan);border-bottom-color:var(--cyan)}
 .tab:focus-visible{outline:2px solid var(--cyan);outline-offset:-4px;border-radius:3px}
 
 /* ---------- Panels ---------- */
-.panel{padding-top:32px;animation:fade .28s ease}
+.panel{padding-top:clamp(26px,6vw,38px);animation:fade .28s ease}
 .panel[hidden]{display:none}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
-.lead{color:var(--muted);font-size:13.5px;margin-bottom:26px;font-weight:300}
+h2{font-size:clamp(18px,4.4vw,20px);font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
+.lead{color:var(--muted);font-size:clamp(12.5px,3vw,13.5px);margin-bottom:clamp(18px,4.5vw,26px);font-weight:300}
 
 /* timeline */
-.tl{position:relative;padding-left:30px}
+.tl{position:relative;padding-left:28px}
 .tl::before{content:'';position:absolute;left:6px;top:8px;bottom:12px;width:1px;background:var(--line)}
-.tl-item{position:relative;padding-bottom:26px}
-.tl-item::before{
-  content:'';position:absolute;left:-30px;top:7px;width:13px;height:13px;
-  border-radius:50%;background:var(--bg);border:1px solid var(--cyan-dim);
-}
+.tl-item{position:relative;padding-bottom:24px}
+.tl-item::before{content:'';position:absolute;left:-28px;top:7px;width:13px;height:13px;
+  border-radius:50%;background:var(--bg);border:1px solid var(--cyan-dim)}
 .tl-item.now::before{border-color:var(--amber);box-shadow:0 0 0 4px rgba(232,163,61,.13)}
-.tl-when{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;
-  color:var(--cyan);margin-bottom:4px}
-.tl-item.now .tl-when{color:var(--amber)}
-.tl-what{font-size:15px;font-weight:500;margin-bottom:3px}
-.tl-note{font-size:13.5px;color:var(--ink-dim);font-weight:300}
+.tl-item.next::before{border-color:var(--green)}
+.tl-when{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--cyan);margin-bottom:4px}
+.tl-item.now .tl-when{color:var(--amber)} .tl-item.next .tl-when{color:var(--green)}
+.tl-what{font-size:clamp(14px,3.5vw,15px);font-weight:500;margin-bottom:3px;line-height:1.5}
+.tl-note{font-size:clamp(12.5px,3.1vw,13.5px);color:var(--ink-dim);font-weight:300}
 
 /* cards */
-.grid{display:grid;gap:14px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
-.card h3{font-size:15.5px;font-weight:600;margin-bottom:10px;letter-spacing:-.01em}
-.card p{font-size:14px;color:var(--ink-dim);font-weight:300}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:9px 18px;font-size:14px;margin-top:4px}
-.kv dt{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.09em;
-  color:var(--muted);text-transform:uppercase;padding-top:4px}
-.kv dd{color:var(--ink-dim);font-weight:300}
+.grid{display:grid;gap:12px;grid-template-columns:1fr}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:clamp(16px,4vw,22px)}
+.card h3{font-size:clamp(14.5px,3.6vw,15.5px);font-weight:600;margin-bottom:10px;letter-spacing:-.01em}
+.card p{font-size:clamp(13px,3.3vw,14px);color:var(--ink-dim);font-weight:300}
+.card p+p{margin-top:11px}
+.hi{color:var(--cyan);font-weight:500}
+.hi-a{color:var(--amber);font-weight:500}
 
-/* accordion options */
-.opt{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-  margin-bottom:10px;overflow:hidden}
-.opt-btn{
-  width:100%;background:none;border:0;color:var(--ink);font-family:inherit;
-  display:flex;align-items:center;gap:14px;padding:17px 20px;cursor:pointer;text-align:left;
-  transition:background .16s;
-}
+.kv{display:grid;grid-template-columns:1fr;gap:3px;font-size:clamp(13px,3.3vw,14px);margin-top:4px}
+.kv dt{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;
+  color:var(--muted);text-transform:uppercase;padding-top:9px}
+.kv dd{color:var(--ink-dim);font-weight:300;padding-bottom:5px}
+
+/* steps */
+.step{display:grid;grid-template-columns:34px 1fr;gap:0 14px;position:relative}
+.step+.step{margin-top:2px}
+.step-n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);
+  border:1px solid var(--cyan-dim);border-radius:6px;width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;background:var(--panel);z-index:1}
+.step-line{grid-column:1;justify-self:center;width:1px;background:var(--line);min-height:14px}
+.step-b{padding-bottom:16px}
+.step-t{font-size:clamp(14px,3.5vw,15px);font-weight:500;margin-top:6px;margin-bottom:4px}
+.step-d{font-size:clamp(12.5px,3.1vw,13.5px);color:var(--ink-dim);font-weight:300}
+.step-meta{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.09em;
+  color:var(--muted);margin-top:6px;display:inline-block;border:1px solid var(--line);
+  padding:2px 7px;border-radius:4px}
+
+/* accordion */
+.opt{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);margin-bottom:9px;overflow:hidden}
+.opt.pick{border-color:var(--cyan-dim)}
+.opt-btn{width:100%;background:none;border:0;color:var(--ink);font-family:inherit;
+  display:flex;align-items:center;gap:10px;padding:15px clamp(14px,3.6vw,20px);cursor:pointer;
+  text-align:left;transition:background .16s;flex-wrap:wrap}
 .opt-btn:hover{background:var(--panel-2)}
 .opt-btn:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px}
-.opt-name{font-size:15.5px;font-weight:600;flex:1;letter-spacing:-.01em}
-.opt-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;
-  padding:3px 8px;border-radius:4px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.opt-name{font-size:clamp(14.5px,3.7vw,15.5px);font-weight:600;flex:1 1 auto;letter-spacing:-.01em;min-width:0}
+.opt-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.09em;
+  padding:3px 7px;border-radius:4px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
 .opt-tag.a{color:var(--cyan);border-color:var(--cyan-dim)}
-.opt-tag.b{color:var(--amber);border-color:#7A5A24}
-.chev{color:var(--muted);font-size:13px;transition:transform .22s}
+.opt-tag.b{color:var(--amber);border-color:var(--amber-dim)}
+.chev{color:var(--muted);font-size:12px;transition:transform .22s;flex:0 0 auto}
 .opt-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
-.opt-body{padding:18px 22px 22px;border-top:1px solid var(--line-soft);padding-top:18px;background:rgba(255,255,255,.02)}
+.opt-body{padding:15px clamp(14px,3.6vw,20px) 18px;border-top:1px solid var(--line-soft)}
 .opt-body[hidden]{display:none}
-.opt-row{display:grid;grid-template-columns:74px 1fr;gap:10px 14px;font-size:14px;margin-bottom:11px}
+.opt-row{display:grid;grid-template-columns:64px 1fr;gap:0 12px;font-size:clamp(13px,3.3vw,14px);margin-bottom:10px}
 .opt-row:last-child{margin-bottom:0}
-.opt-lab{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;padding-top:4px}
-.opt-lab.plus{color:var(--green)}
-.opt-lab.minus{color:var(--rose)}
-.opt-lab.how{color:var(--muted)}
+.opt-lab{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.09em;padding-top:4px}
+.opt-lab.plus{color:var(--green)} .opt-lab.minus{color:var(--rose)} .opt-lab.how{color:var(--muted)}
 .opt-row div:last-child{color:var(--ink-dim);font-weight:300}
 
 /* checklist */
-.check{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-  padding:4px 4px}
-.ci{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-bottom:1px solid var(--line-soft);
-  cursor:pointer;transition:background .15s}
+.check{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:3px}
+.ci{display:flex;gap:12px;align-items:flex-start;padding:13px clamp(12px,3.4vw,16px);
+  border-bottom:1px solid var(--line-soft);cursor:pointer;transition:background .15s}
 .check .ci:last-child{border-bottom:0}
 .ci:hover{background:var(--panel-2)}
-.ci input{
-  appearance:none;flex:0 0 17px;width:17px;height:17px;margin-top:3px;
+.ci input{appearance:none;-webkit-appearance:none;flex:0 0 18px;width:18px;height:18px;margin-top:2px;
   border:1px solid var(--muted);border-radius:4px;background:transparent;cursor:pointer;
-  position:relative;transition:all .15s;
-}
+  position:relative;transition:all .15s}
 .ci input:checked{background:var(--cyan);border-color:var(--cyan)}
-.ci input:checked::after{
-  content:'';position:absolute;left:5px;top:1px;width:4px;height:9px;
-  border:solid var(--bg);border-width:0 2px 2px 0;transform:rotate(43deg);
-}
+.ci input:checked::after{content:'';position:absolute;left:5.5px;top:1.5px;width:4px;height:9px;
+  border:solid var(--bg);border-width:0 2px 2px 0;transform:rotate(43deg)}
 .ci input:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-.ci-txt{font-size:14.5px;line-height:1.55}
-.ci-sub{font-size:12.5px;color:var(--muted);margin-top:3px;font-weight:300}
+.ci-txt{font-size:clamp(13.5px,3.4vw,14.5px);line-height:1.55;display:block}
+.ci-sub{font-size:clamp(11.5px,2.9vw,12.5px);color:var(--muted);margin-top:3px;font-weight:300;display:block}
 .ci input:checked ~ .ci-body .ci-txt{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--cyan-dim)}
+.ci.key{border-left:2px solid var(--amber)}
 
-.count{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.count{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .count-bar{flex:1;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
 .count-fill{height:100%;background:var(--cyan);width:0;transition:width .3s ease}
-.count-num{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);letter-spacing:.08em;white-space:nowrap}
+.count-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.07em}
 
-.group-h{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--cyan);margin:26px 0 10px}
-.group-h:first-of-type{margin-top:0}
+.group-h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--cyan);margin:22px 0 9px}
+.group-h.first{margin-top:0}
+.group-h.warn{color:var(--amber)}
 
-.tools{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
-.btn{
-  background:transparent;border:1px solid var(--line);color:var(--ink-dim);
-  font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.09em;
-  padding:10px 16px;border-radius:6px;cursor:pointer;transition:all .16s;
-}
+.tools{display:flex;gap:9px;margin-top:22px;flex-wrap:wrap}
+.btn{background:transparent;border:1px solid var(--line);color:var(--ink-dim);
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;
+  padding:10px 15px;border-radius:6px;cursor:pointer;transition:all .16s}
 .btn:hover{border-color:var(--cyan-dim);color:var(--cyan)}
 .btn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 
-.note{
-  margin-top:34px;border-left:2px solid var(--line);padding:2px 0 2px 16px;
-  font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.7;
-}
+.note{margin-top:clamp(24px,6vw,34px);border-left:2px solid var(--line);padding:2px 0 2px 15px;
+  font-size:clamp(12px,3vw,12.5px);color:var(--muted);font-weight:300;line-height:1.75}
 .note strong{color:var(--ink-dim);font-weight:500}
+.note.warn{border-left-color:var(--amber-dim)}
+.note.warn strong{color:var(--amber)}
 
-@media(min-width:760px){
+.tbd{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.08em;
+  color:var(--amber);border:1px dashed var(--amber-dim);padding:2px 6px;border-radius:4px;
+  margin-left:6px;white-space:nowrap;display:inline-block;vertical-align:middle}
+
+@media(min-width:700px){
   .grid.two{grid-template-columns:1fr 1fr}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  .kv{grid-template-columns:118px 1fr;gap:8px 16px}
+  .kv dt{padding-top:3px} .kv dd{padding-bottom:0}
 }
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
+@media(max-width:480px){
+  .stat{border-right:0;border-bottom:1px solid var(--line-soft);padding-left:0!important}
+  .stat:last-child{border-bottom:0}
+  .opt-row{grid-template-columns:1fr;gap:2px}
+  .opt-lab{padding-top:0}
 }
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media print{
   body{background:#fff;color:#000}
   nav.tabs,.tools,.scale,.reticle-label{display:none}
   .panel[hidden]{display:block!important}
-  .card,.opt,.check{border-color:#ccc;background:#fff}
   .opt-body[hidden]{display:block!important}
-  h1,h2,.stat-v{color:#000}
-  .panel{page-break-inside:avoid;border-top:1px solid #ccc;margin-top:20px}
+  .card,.opt,.check{border-color:#ccc;background:#fff;break-inside:avoid}
+  h1,h2,.stat-v,.ci-txt,.step-t,.tl-what,.opt-name{color:#000}
+  .panel{page-break-before:always;border-top:1px solid #ccc}
+  .grid.two,.grid.three{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -238,25 +215,36 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
 
 <header>
   <div class="wrap">
-    <div class="eyebrow">Pituitary Follow-up · Post-op 5Y</div>
-    <h1>뇌하수체 추적관찰 &amp; 치료 의사결정 대시보드</h1>
-    <p class="sub">수술 후 5년 시점 MRI 결과와 향후 치료 선택지를 한 화면에서 정리합니다. 진료실에서 바로 열어 확인하는 용도입니다.</p>
+    <div class="eyebrow">Pituitary Follow-up · Post-op 5Y · Novalis SRS</div>
+    <h1>뇌하수체 추적관찰 &amp; 노발리스 방사선수술 대시보드</h1>
+    <p class="sub">수술 후 5년 시점 MRI 결과부터 시술 당일 준비까지, 진료실에서 바로 열어 확인하는 정리 자료입니다.</p>
 
     <div class="scale">
       <div class="reticle-label">TODAY · 5Y MRI</div>
       <div class="reticle"></div>
       <div class="scale-ticks" id="ticks"></div>
-      <div class="scale-marks">
-        <span>수술 (0Y)</span><span>1Y</span><span>2Y</span><span>3Y</span><span>4Y</span><span>5Y</span>
-      </div>
+      <div class="scale-marks"><span>수술 (0Y)</span><span>1Y</span><span>2Y</span><span>3Y</span><span>4Y</span><span>5Y</span></div>
     </div>
 
-    <div class="status" id="status-cards"></div>
+    <div class="status">
+      <div class="stat"><div class="stat-k">수술 후 경과</div><div class="stat-v">5년</div></div>
+      <div class="stat"><div class="stat-k">잔존 종양</div><div class="stat-v warn">크기 증가 확인</div></div>
+      <div class="stat"><div class="stat-k">계획 치료</div><div class="stat-v act">노발리스 · 1회</div></div>
+      <div class="stat"><div class="stat-k">현재 약물</div><div class="stat-v">호르몬 대체요법</div></div>
+    </div>
   </div>
 </header>
 
 <nav class="tabs">
-  <div class="tabs-inner" role="tablist" id="tab-list"></div>
+  <div class="tabs-inner" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="p1" id="t1">치료 경과</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2">MRI 검사</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3">치료 옵션</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p4" id="t4">시술 당일</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p5" id="t5">고민할 것</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p6" id="t6">진료 질문</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p7" id="t7">추가 검토</button>
+  </div>
 </nav>
 
 <main class="wrap">
@@ -264,92 +252,391 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
 <!-- 1 -->
 <section class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
   <h2>지금까지의 치료 경과</h2>
-  <p class="lead">수술 시점부터 오늘까지의 흐름</p>
-  <div class="tl" id="timeline"></div>
+  <p class="lead">수술 시점부터 오늘, 그리고 다음 단계까지</p>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-when">0Y · 수술</div>
+      <div class="tl-what">뇌하수체 종양 절제 수술</div>
+      <div class="tl-note">혈관에 인접한 부위는 제거하지 못하고 잔존 — 추적관찰 대상으로 남김</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-when">0Y~ · 약물</div>
+      <div class="tl-what">호르몬 대체요법 시작</div>
+      <div class="tl-note">수술 이후 호르몬제 복용을 현재까지 지속 중</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-when">1Y–4Y · 관찰</div>
+      <div class="tl-what">정기 MRI 추적관찰</div>
+      <div class="tl-note">잔존 종양의 크기 변화를 주기적으로 확인</div>
+    </div>
+    <div class="tl-item now">
+      <div class="tl-when">5Y · 오늘</div>
+      <div class="tl-what">MRI 재촬영 — 잔존 종양 크기 증가 확인</div>
+      <div class="tl-note">시신경에 가까워지기 전 방사선수술 시행이 제시됨</div>
+    </div>
+    <div class="tl-item next">
+      <div class="tl-when">NEXT · 계획</div>
+      <div class="tl-what">노발리스 방사선수술 · 1회 시행 예정</div>
+      <div class="tl-note">당일 오전 고정 마스크 제작 → 오후 시술. 프레임 나사 고정 없음</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-when">이후 · 추적</div>
+      <div class="tl-what">시술 후 영상 · 호르몬 추적관찰</div>
+      <div class="tl-note">종양 반응은 수개월~수년에 걸쳐 서서히 나타남. 시야 검사도 병행<span class="tbd">주기 확인 필요</span></div>
+    </div>
+  </div>
 </section>
 
 <!-- 2 -->
 <section class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
-  <h2>오늘 받은 검사</h2>
-  <p class="lead">MR Pituitary + Sella turcica (Dynamic), WO+W contrast IV</p>
-  <div class="grid two">
+  <h2>MRI는 목적에 따라 다르게 찍는다</h2>
+  <p class="lead">같은 뇌하수체 MRI라도 던지는 질문이 다르면 프로토콜도 달라집니다.</p>
+
+  <div class="grid three">
     <div class="card">
-      <h3>검사명 해석</h3>
-      <dl class="kv">
-        <dt>MR Pituitary</dt><dd>뇌하수체를 대상으로 한 자기공명영상</dd>
-        <dt>Sella turcica</dt><dd>뇌하수체가 놓인 안장 모양 뼈 구조물(터키안)까지 포함해 촬영</dd>
-        <dt>Dynamic</dt><dd>조영제 주입 중 시간 간격을 두고 연속 촬영</dd>
-        <dt>WO+W</dt><dd>조영 전(Without)과 조영 후(With) 영상을 모두 확보</dd>
-        <dt>contrast IV</dt><dd>조영제를 정맥주사로 투여</dd>
-      </dl>
+      <h3>① 추적 MRI</h3>
+      <p><span class="hi">질문 — "자랐나?"</span></p>
+      <p>이전 검사와 비교해 크기 변화를 판단합니다. 결정적 조건은 <strong style="color:var(--ink);font-weight:500">비교 가능성</strong>. 같은 장비·같은 절편 두께·같은 시퀀스로 찍어야 mm 단위 변화를 신뢰할 수 있습니다. 조건이 바뀌면 실제 성장인지 촬영 차이인지 구분이 어려워집니다.</p>
     </div>
     <div class="card">
-      <h3>이 방식을 쓰는 이유</h3>
-      <p>일반 뇌 MRI보다 얇은 절편으로 뇌하수체 부위만 정밀하게 봅니다. Dynamic 기법은 정상 조직과 종양이 조영제를 흡수하는 <strong style="color:var(--cyan);font-weight:500">속도 차이</strong>를 이용해, 경계가 뚜렷하지 않은 잔존 종양의 윤곽을 구분해냅니다.</p>
-      <p style="margin-top:12px">작은 종양이나 혈관에 붙어 있는 잔존 조직처럼 판별이 까다로운 경우에 표준적으로 사용되는 프로토콜입니다.</p>
+      <h3>② Dynamic 조영</h3>
+      <p><span class="hi">질문 — "어디가 종양인가?"</span></p>
+      <p>조영제가 들어가는 순간의 흡수 <strong style="color:var(--ink);font-weight:500">속도 차이</strong>로 종양과 정상 조직을 구분합니다. 조영 전 1회 촬영 후 조영제를 주입하고 수 초 간격으로 연속 촬영합니다. 조영 없는 영상에서 놓치기 쉬운 작은 병변의 검출률을 크게 높입니다.</p>
+    </div>
+    <div class="card">
+      <h3>③ 계획 MRI</h3>
+      <p><span class="hi">질문 — "어디에 얼마나 쏠까?"</span></p>
+      <p>앞의 둘이 진단용이라면 이건 <strong style="color:var(--ink);font-weight:500">치료 장비에 넣을 설계도</strong>입니다. 종양의 부피·모양·3차원 좌표와 시신경 등 주변 구조물과의 거리를 확정합니다. 얇은 절편 조영 촬영을 하고 CT와 융합해 선량 계획을 세웁니다.</p>
     </div>
   </div>
-  <div class="card" style="margin-top:14px">
-    <h3>결과를 볼 때 확인할 수치</h3>
-    <p>구두 설명만으로는 변화 폭을 가늠하기 어렵습니다. 판독 소견서(리포트) 원문에서 아래 항목을 직접 확인해 두시면, 다음 진료나 2차 소견에서 기준점이 됩니다.</p>
-    <dl class="kv" style="margin-top:14px">
-      <dt>Size</dt><dd>종양의 최대 직경(mm) 및 3축 크기</dd>
-      <dt>Δ Change</dt><dd>이전 검사 대비 증가량과 그 사이의 기간</dd>
-      <dt>Optic</dt><dd>시신경 · 시신경교차(chiasm)까지의 거리</dd>
-      <dt>Vessel</dt><dd>내경동맥 등 인접 혈관과의 관계</dd>
+
+  <div class="group-h" style="margin-top:28px">오늘 받은 검사 — MR Pituitary + Sella turcica (Dynamic), WO+W contrast IV</div>
+  <div class="card">
+    <dl class="kv">
+      <dt>MR Pituitary</dt><dd>뇌하수체를 대상으로 한 자기공명영상</dd>
+      <dt>Sella turcica</dt><dd>뇌하수체가 놓인 안장 모양 뼈 구조물(터키안)까지 포함</dd>
+      <dt>Dynamic</dt><dd>조영제 주입 중 시간 간격을 두고 연속 촬영</dd>
+      <dt>WO + W</dt><dd>조영 전(Without)과 조영 후(With) 영상을 모두 확보</dd>
+      <dt>contrast IV</dt><dd>조영제를 정맥주사로 투여</dd>
     </dl>
+  </div>
+
+  <div class="group-h">단계별 검사 절차 — 당일 흐름</div>
+  <div class="card">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-b">
+        <div class="step-t">접수 · 문진</div>
+        <div class="step-d">복용 중인 약, 신장 기능, 조영제 부작용 이력, 금속 삽입물 여부를 확인합니다. 호르몬제 복용 중이라는 사실을 반드시 기재하세요 — 일부 약물은 뇌하수체 크기 자체에 영향을 줍니다.</div>
+      </div>
+    </div>
+    <div class="step"><div class="step-line"></div><div></div></div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-b">
+        <div class="step-t">정맥로 확보</div>
+        <div class="step-d">조영제 주입용 주사바늘을 팔에 미리 꽂아둡니다. Dynamic은 촬영 도중 정확한 타이밍에 주입해야 해서, 검사 시작 전에 준비를 끝내둡니다.</div>
+      </div>
+    </div>
+    <div class="step"><div class="step-line"></div><div></div></div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-b">
+        <div class="step-t">조영 전 촬영</div>
+        <div class="step-d">조영제 없이 기본 영상을 먼저 얻습니다. 시상면·관상면 T1과 관상면 T2 등. 나중에 조영 후 영상과 비교할 기준선이 됩니다.</div>
+        <div class="step-meta">움직임 금지 구간 시작</div>
+      </div>
+    </div>
+    <div class="step"><div class="step-line"></div><div></div></div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-b">
+        <div class="step-t">Dynamic 촬영</div>
+        <div class="step-d">조영제를 주입하면서 짧은 간격으로 연속 촬영합니다. 좁은 범위를 빠르게 반복해서 찍습니다. <strong style="color:var(--ink);font-weight:500">이 구간에서 움직이면 타이밍이 어긋나 재촬영</strong>이 필요합니다. 검사 전체에서 가장 중요한 단계입니다.</div>
+        <div class="step-meta">가장 민감한 구간</div>
+      </div>
+    </div>
+    <div class="step"><div class="step-line"></div><div></div></div>
+    <div class="step">
+      <div class="step-n">05</div>
+      <div class="step-b">
+        <div class="step-t">지연 조영 촬영</div>
+        <div class="step-d">시간이 조금 지난 뒤 다시 촬영합니다. Dynamic에서는 잘 안 보이던 병변이나 주변 구조물과의 관계가 드러나는 경우가 있습니다.</div>
+      </div>
+    </div>
+    <div class="step"><div class="step-line"></div><div></div></div>
+    <div class="step">
+      <div class="step-n">06</div>
+      <div class="step-b">
+        <div class="step-t">판독 · 이전 영상 대조</div>
+        <div class="step-d">영상의학과에서 이전 검사와 나란히 놓고 크기를 비교합니다. 수술 후 케이스에서는 잔존 종양인지 수술 흉터인지를 조영 패턴으로 감별합니다 — 덩어리 형태로 진하게 조영되면 잔존 종양, 가장자리만 얇게 조영되면 수술 후 변화일 가능성이 큽니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group-h warn">판독 소견서에서 직접 확인할 것</div>
+  <div class="card">
+    <p>구두 설명만으로는 변화 폭을 가늠하기 어렵습니다. 아래 수치를 받아두면 2차 소견이나 시술 후 비교의 기준점이 됩니다.</p>
+    <dl class="kv" style="margin-top:14px">
+      <dt>Size</dt><dd>종양의 최대 직경(mm) 및 3축 크기<span class="tbd">미확인</span></dd>
+      <dt>Δ Change</dt><dd>이전 검사 대비 증가량과 그 사이 기간<span class="tbd">미확인</span></dd>
+      <dt>Optic</dt><dd>시신경 · 시신경교차(chiasm)까지의 거리<span class="tbd">미확인</span></dd>
+      <dt>Vessel</dt><dd>내경동맥 등 인접 혈관과의 관계<span class="tbd">미확인</span></dd>
+      <dt>Pattern</dt><dd>결절형(nodular) / 주변부(peripheral) 조영 여부<span class="tbd">미확인</span></dd>
+    </dl>
+  </div>
+
+  <div class="note">
+    <strong>확인해 볼 점</strong> — 이전 추적 검사들도 오늘과 같은 Dynamic 프로토콜이었는지 물어보세요. 프로토콜이 달라졌다면 "커졌다"는 판단의 근거를 한 번 더 확인할 필요가 있습니다. 참고로 안정적인 소형 병변의 경우, 가돌리늄 축적 우려 때문에 추적 검사에서 조영제를 생략하자는 논의도 최근 나오고 있습니다.
   </div>
 </section>
 
 <!-- 3 -->
 <section class="panel" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
   <h2>치료 방법의 종류</h2>
-  <p class="lead">각 항목을 눌러 특징 · 장점 · 단점을 펼쳐보세요. 어떤 방식이 적합한지는 종양 크기와 시신경까지의 거리에 따라 담당의가 판단합니다.</p>
+  <p class="lead">각 항목을 눌러 방식 · 장점 · 단점을 펼쳐보세요. 맨 위가 이번에 제안받은 방식입니다.</p>
 
-  <div id="options"></div>
+  <div class="opt pick">
+    <button class="opt-btn" aria-expanded="true" aria-controls="o0">
+      <span class="opt-name">노발리스 (Novalis)</span><span class="opt-tag a">제안받은 방식</span><span class="opt-tag a">1회</span><span class="chev">▾</span>
+    </button>
+    <div class="opt-body" id="o0">
+      <div class="opt-row"><span class="opt-lab how">방식</span><div>선형가속기(LINAC) 기반 정위방사선수술. 종양 모양에 맞춰 빔 형상과 세기를 조절해 조사하며, 실시간 위치 추적 장치로 자세 오차를 보정합니다. 국내에서 방사선수술이 가능한 대표 장비는 노발리스·감마나이프·사이버나이프·양성자치료기 정도입니다.</div></div>
+      <div class="opt-row"><span class="opt-lab plus">장점</span><div>감마나이프처럼 나사못으로 머리에 금속 프레임을 고정하지 않고, 얼굴 본을 떠서 만든 <strong style="color:var(--ink);font-weight:500">플라스틱 마스크로 비침습 고정</strong>합니다. 절개·수혈이 없고 통원으로 가능하며, 여러 회 분할이 필요한 경우에도 마스크를 재사용할 수 있습니다.</div></div>
+      <div class="opt-row"><span class="opt-lab minus">단점</span><div>효과는 즉시 나타나지 않고 수개월~수년에 걸쳐 서서히 확인됩니다. 방사선수술 일반의 한계로 병변 크기가 큰 경우(통상 3cm 초과) 단일 시행이 제한되며, 시술 후 뇌하수체 기능이 추가로 저하될 가능성이 있습니다.</div></div>
+      <div class="opt-row"><span class="opt-lab how">해당</span><div>수술 후 종양이 남아 있는 경우, 재발한 경우, 또는 위치상 수술이 어려운 경우에 쓰이는 2차적 방법입니다 — <strong style="color:var(--cyan);font-weight:500">이번 케이스가 여기 해당</strong>합니다.</div></div>
+    </div>
+  </div>
+
+  <div class="opt">
+    <button class="opt-btn" aria-expanded="false" aria-controls="o1">
+      <span class="opt-name">감마나이프</span><span class="opt-tag b">프레임 고정</span><span class="chev">▾</span>
+    </button>
+    <div class="opt-body" id="o1" hidden>
+      <div class="opt-row"><span class="opt-lab how">방식</span><div>여러 방향에서 감마선을 한 지점에 집중 조사. 통상 1회로 마무리하며, 두개강 내 병변에 한정됩니다.</div></div>
+      <div class="opt-row"><span class="opt-lab plus">장점</span><div>뇌 정위방사선수술 분야에서 가장 오래 축적된 데이터를 가진 방식. 작은 조사구경으로 높은 집중도를 냅니다.</div></div>
+      <div class="opt-row"><span class="opt-lab minus">단점</span><div>국소마취 후 나사못으로 정위 프레임을 두개골에 고정해야 합니다. 시신경과 거리가 가까우면 1회 시행 적용이 제한될 수 있습니다.</div></div>
+    </div>
+  </div>
+
+  <div class="opt">
+    <button class="opt-btn" aria-expanded="false" aria-controls="o2">
+      <span class="opt-name">사이버나이프</span><span class="opt-tag a">분할 가능</span><span class="chev">▾</span>
+    </button>
+    <div class="opt-body" id="o2" hidden>
+      <div class="opt-row"><span class="opt-lab how">방식</span><div>로봇팔이 위치를 추적하며 방사선을 조사. 1회 또는 여러 회로 나눠 시행 가능합니다.</div></div>
+      <div class="opt-row"><span class="opt-lab plus">장점</span><div>프레임 없이 시행하며, 분할이 가능해 시신경 인접 상황에서도 선택지가 됩니다.</div></div>
+      <div class="opt-row"><span class="opt-lab minus">단점</span><div>분할 시 여러 회 통원이 필요합니다.</div></div>
+    </div>
+  </div>
+
+  <div class="opt">
+    <button class="opt-btn" aria-expanded="false" aria-controls="o3">
+      <span class="opt-name">소분할 정위 방사선치료</span><span class="opt-tag b">5~6회</span><span class="chev">▾</span>
+    </button>
+    <div class="opt-body" id="o3" hidden>
+      <div class="opt-row"><span class="opt-lab how">방식</span><div>총 선량을 5~6회 정도로 나눠 조사. 노발리스 장비로도 시행 가능합니다.</div></div>
+      <div class="opt-row"><span class="opt-lab plus">장점</span><div>시신경처럼 방사선에 민감한 구조물이 매우 가깝거나 병변이 클 때 안전 여유를 확보하기 유리합니다.</div></div>
+      <div class="opt-row"><span class="opt-lab minus">단점</span><div>치료 기간이 길고 통원 부담이 있습니다. 이번에는 1회 시행으로 계획되었으므로 해당하지 않지만, 향후 재치료가 필요할 때 대안이 됩니다.</div></div>
+    </div>
+  </div>
+
+  <div class="opt">
+    <button class="opt-btn" aria-expanded="false" aria-controls="o4">
+      <span class="opt-name">재수술</span><span class="opt-tag b">침습적</span><span class="chev">▾</span>
+    </button>
+    <div class="opt-body" id="o4" hidden>
+      <div class="opt-row"><span class="opt-lab how">방식</span><div>잔존 종양의 추가 절제를 시도</div></div>
+      <div class="opt-row"><span class="opt-lab plus">장점</span><div>성공 시 종양 부피를 즉각적으로 줄일 수 있음</div></div>
+      <div class="opt-row"><span class="opt-lab minus">단점</span><div>이번 잔존 부위는 혈관 인접으로 1차 수술에서도 제거하지 못한 위치. 수술 위험과 회복 부담이 큽니다.</div></div>
+    </div>
+  </div>
+
+  <div class="opt">
+    <button class="opt-btn" aria-expanded="false" aria-controls="o5">
+      <span class="opt-name">관찰 지속</span><span class="opt-tag b">시기 위험</span><span class="chev">▾</span>
+    </button>
+    <div class="opt-body" id="o5" hidden>
+      <div class="opt-row"><span class="opt-lab how">방식</span><div>치료 없이 MRI 추적관찰을 이어감</div></div>
+      <div class="opt-row"><span class="opt-lab plus">장점</span><div>당장의 시술 위험이 없고 비침습적</div></div>
+      <div class="opt-row"><span class="opt-lab minus">단점</span><div>이미 성장이 확인된 상태이므로, 시신경 침범 전에 치료할 수 있는 시점을 놓칠 위험이 있습니다.</div></div>
+    </div>
+  </div>
 
   <div class="note">
-    <strong>참고</strong> — 방사선수술의 목표는 대개 종양을 완전히 없애는 것이 아니라 <strong>더 이상 자라지 않도록 성장을 억제</strong>하는 것입니다. 이 목표 설정을 담당의와 먼저 맞춰두면 이후 추적 결과를 해석하기 쉬워집니다.
+    <strong>목표 설정</strong> — 방사선수술의 목적은 종양을 없애는 것이 아니라 <strong>성장을 멈추게 하는 것</strong>입니다. 이 목표를 담당의와 먼저 맞춰두면 이후 추적 영상 결과를 해석하기 쉬워집니다.
+  </div>
+  <div class="note">
+    <strong>정밀도 수치에 대해</strong> — 각 병원 홈페이지가 자사 장비의 mm 단위 정밀도를 내세우는 경우가 많지만, 이는 홍보 맥락의 수치입니다. 실제로는 해당 병원의 시술 경험, 계획 소프트웨어 운용 능력, 의료진 숙련도가 더 큰 변수입니다.
   </div>
 </section>
 
 <!-- 4 -->
 <section class="panel" id="p4" role="tabpanel" aria-labelledby="t4" hidden>
-  <h2>결정 전에 정리해야 할 것</h2>
-  <p class="lead">항목을 눌러 검토 완료 표시를 남기세요.</p>
+  <h2>시술 당일 — 노발리스 1회</h2>
+  <p class="lead">오전 마스크 제작 → 오후 시술. 당일 완결형 일정입니다.</p>
 
-  <div class="count">
+  <div class="card">
+    <div class="step">
+      <div class="step-n">AM</div>
+      <div class="step-b">
+        <div class="step-t">고정 마스크 제작</div>
+        <div class="step-d">얼굴과 머리 모양대로 본을 떠서 개인 전용 플라스틱 마스크를 만듭니다. 나사못 고정이 없어 통증은 없지만, 마스크가 얼굴에 밀착되므로 폐소공포가 있으면 미리 알리세요.</div>
+      </div>
+    </div>
+    <div class="step"><div class="step-line"></div><div></div></div>
+    <div class="step">
+      <div class="step-n">AM</div>
+      <div class="step-b">
+        <div class="step-t">계획 영상 촬영</div>
+        <div class="step-d">마스크를 쓴 상태에서 계획용 CT를 찍고, 조영 MRI와 융합해 종양의 3차원 좌표를 확정합니다. 조영제를 다시 쓰는지 미리 확인하세요.</div>
+        <div class="step-meta">조영제 재사용 여부 확인</div>
+      </div>
+    </div>
+    <div class="step"><div class="step-line"></div><div></div></div>
+    <div class="step">
+      <div class="step-n">AM</div>
+      <div class="step-b">
+        <div class="step-t">선량 계획 수립</div>
+        <div class="step-d">신경외과 · 방사선종양학과 · 의학물리사가 함께 종양에 들어갈 처방 선량과 시신경에 들어갈 최대 선량을 계산합니다. 선량 결정은 종양 크기, 시신경·시신경교차까지의 거리, 과거 방사선치료 이력을 근거로 이뤄집니다.</div>
+        <div class="step-meta">이 시간에 대기</div>
+      </div>
+    </div>
+    <div class="step"><div class="step-line"></div><div></div></div>
+    <div class="step">
+      <div class="step-n">PM</div>
+      <div class="step-b">
+        <div class="step-t">방사선수술 시행</div>
+        <div class="step-d">마스크로 고정한 상태로 침상에 누워 조사를 받습니다. 통증도 소리도 거의 없고, 조사 자체는 짧게 끝납니다. 준비와 위치 확인 시간이 더 걸립니다.</div>
+        <div class="step-meta">1회 · 단일 분할</div>
+      </div>
+    </div>
+    <div class="step"><div class="step-line"></div><div></div></div>
+    <div class="step">
+      <div class="step-n">PM</div>
+      <div class="step-b">
+        <div class="step-t">경과 관찰 후 귀가</div>
+        <div class="step-d">통상 입원 없이 당일 귀가합니다. 시술 후 며칠간 두통·피로·부기가 있을 수 있으며, 이에 대비해 스테로이드가 처방되기도 합니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group-h warn">가장 중요 — 호르몬제 관련 사전 확인</div>
+  <div class="check" data-check="c4">
+    <label class="ci key"><input type="checkbox"><span class="ci-body"><span class="ci-txt">당일 아침 호르몬제를 평소대로 복용해도 되는지 확인</span><span class="ci-sub">금식 지시와 겹칠 수 있어 반드시 사전 확인</span></span></label>
+    <label class="ci key"><input type="checkbox"><span class="ci-body"><span class="ci-txt">스테로이드 복용 중이라면 당일 용량 조절이 필요한지 확인</span><span class="ci-sub">시술은 신체적 스트레스에 해당 — 부신 기능 저하가 있으면 증량이 필요할 수 있음</span></span></label>
+    <label class="ci key"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 후 처방되는 스테로이드와 기존 복용 약의 관계 정리</span><span class="ci-sub">중복 복용 또는 용량 혼선을 막기 위해 문서로 받아두기</span></span></label>
+    <label class="ci key"><input type="checkbox"><span class="ci-body"><span class="ci-txt">신경외과·방사선종양학과와 내분비내과가 서로 확인했는지 직접 질문</span><span class="ci-sub">과가 다르면 놓치기 쉬운 부분 — 환자가 짚어주는 것이 가장 확실</span></span></label>
+  </div>
+
+  <div class="group-h">그 외 당일 준비</div>
+  <div class="check" data-check="c4">
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">금식이 필요한지, 몇 시부터인지</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">계획 영상에 조영제를 다시 사용하는지</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">당일 귀가 가능한지, 동반자가 필요한지</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">전체 소요 시간과 대기 구간 (오전~오후 종일 일정)</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 후 며칠간 주의사항과 이상 증상 시 연락처</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">업무 복귀 가능 시점</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">비용과 실손보험 적용 범위</span></span></label>
+  </div>
+
+  <div class="count" style="margin-top:16px">
     <div class="count-bar"><div class="count-fill" data-fill="c4"></div></div>
     <div class="count-num" data-num="c4">0 / 0</div>
   </div>
+  <div class="tools">
+    <button class="btn" data-reset="c4">체크 초기화</button>
+  </div>
 
-  <div class="check" id="checklist-c4" data-check="c4"></div>
-
-  <div class="note">
-    급성 응급 상황이 아니라면 결정까지 대개 어느 정도 시간 여유가 있습니다. <strong>조급하게 정하기보다 필요한 정보를 다 모은 뒤 결정</strong>하는 편이 낫습니다. 다만 여유가 얼마나 되는지는 담당의에게 직접 확인하세요.
+  <div class="note warn">
+    <strong>1회 시행의 의미</strong> — 방사선수술을 단일 분할로 계획하려면 시신경에 들어가는 1회 선량이 안전 범위 안에 들어와야 합니다. 담당의가 1회로 계획했다는 것은 종양과 시신경 사이에 아직 여유가 있다고 판단했다는 뜻으로 볼 수 있습니다. 다만 이는 일반적인 원리이므로, <strong>처방 선량과 시신경 최대 선량 수치를 직접 확인</strong>하시는 것이 확실합니다.
   </div>
 </section>
 
 <!-- 5 -->
 <section class="panel" id="p5" role="tabpanel" aria-labelledby="t5" hidden>
-  <h2>진료실에서 물어볼 것</h2>
-  <p class="lead">답을 들은 항목은 체크해 나가세요. 인쇄해서 들고 가셔도 됩니다.</p>
+  <h2>결정 전에 정리해야 할 것</h2>
+  <p class="lead">항목을 눌러 검토 완료 표시를 남기세요.</p>
 
   <div class="count">
     <div class="count-bar"><div class="count-fill" data-fill="c5"></div></div>
     <div class="count-num" data-num="c5">0 / 0</div>
   </div>
 
-  <div id="checklist-c5"></div>
+  <div class="check" data-check="c5">
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">종양과 시신경 사이에 남은 거리 파악</span><span class="ci-sub">1회 시행 가능 여부를 결정한 근거</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">처방 선량과 시신경 최대 선량 수치 확인</span><span class="ci-sub">안전성 판단의 핵심 숫자</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 후 호르몬 기능이 추가로 떨어질 가능성 확인</span><span class="ci-sub">이미 호르몬제 복용 중 — 어느 축이 영향받는지 확인 필요</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">지금 시행할지, 조금 더 관찰할지 비교</span><span class="ci-sub">각 선택의 위험과 이득을 수치로 요청</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">2차 소견을 받을지 결정</span><span class="ci-sub">불신이 아니라 확인 차원 — 큰 결정 앞에서는 일반적인 절차</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">해당 병원의 뇌하수체 종양 노발리스 시술 경험</span><span class="ci-sub">장비 사양보다 운용 경험이 더 큰 변수</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">회복 기간과 업무·은퇴 계획의 조율</span><span class="ci-sub">필요한 휴가나 근무 조정 범위를 미리 가늠</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">비용과 실손보험 적용 범위 확인</span><span class="ci-sub">장비와 시술 방식에 따라 달라짐</span></span></label>
+  </div>
 
-  <div class="tools">
-    <button type="button" class="btn" onclick="window.print()">이 화면 인쇄</button>
-    <button type="button" class="btn" data-reset="c5">체크 초기화</button>
+  <div class="note">
+    급성 응급 상황이 아니라면 결정까지 대개 어느 정도 시간 여유가 있습니다. <strong>조급하게 정하기보다 필요한 정보를 다 모은 뒤 결정</strong>하는 편이 낫습니다. 다만 여유가 얼마나 되는지는 담당의에게 직접 확인하세요.
   </div>
 </section>
 
 <!-- 6 -->
 <section class="panel" id="p6" role="tabpanel" aria-labelledby="t6" hidden>
+  <h2>진료실에서 물어볼 것</h2>
+  <p class="lead">답을 들은 항목은 체크해 나가세요. 인쇄해서 들고 가셔도 됩니다.</p>
+
+  <div class="count">
+    <div class="count-bar"><div class="count-fill" data-fill="c6"></div></div>
+    <div class="count-num" data-num="c6">0 / 0</div>
+  </div>
+
+  <div class="group-h first">영상 결과</div>
+  <div class="check" data-check="c6">
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">현재 종양 크기와 시신경까지의 거리는 몇 mm인가요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">이전 검사 대비 얼마나 커졌고, 성장 속도는 빠른 편인가요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">이전 추적 검사들도 오늘과 같은 Dynamic 프로토콜이었나요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">판독 소견서 사본과 영상 자료(CD)를 받을 수 있을까요?</span></span></label>
+  </div>
+
+  <div class="group-h">노발리스 시술</div>
+  <div class="check" data-check="c6">
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">처방 선량은 몇 Gy이고, 시신경에 들어가는 최대 선량은 몇 Gy인가요?</span><span class="ci-sub">1회 시행 안전성의 핵심 근거</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">1회로 계획한 근거는 무엇인가요? 분할이 필요한 경우는 어떤 상황인가요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 목표는 종양 소실인가요, 성장 억제인가요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">효과가 확인되기까지 얼마나 걸리나요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">이 병원의 뇌하수체 종양 노발리스 시술 경험은 어느 정도인가요?</span></span></label>
+  </div>
+
+  <div class="group-h">위험과 시기</div>
+  <div class="check" data-check="c6">
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">지금 시행하는 것과 몇 개월 더 관찰하는 것의 위험 차이는?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시신경이나 정상 뇌하수체가 영향받을 확률은?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">호르몬 기능이 추가로 떨어질 가능성과 대비 방법은?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">2차 소견을 받아보는 게 좋을 상황인가요?</span></span></label>
+  </div>
+
+  <div class="group-h warn">약물 · 당일 일정</div>
+  <div class="check" data-check="c6">
+    <label class="ci key"><input type="checkbox"><span class="ci-body"><span class="ci-txt">당일 호르몬제 복용과 용량 조절은 어떻게 하나요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 전 필요한 추가 검사(시야검사, 혈액검사 등)는 무엇인가요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">금식이 필요한가요? 계획 영상에 조영제를 다시 쓰나요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">당일 귀가 가능한가요? 업무 복귀는 언제부터인가요?</span></span></label>
+  </div>
+
+  <div class="group-h">이후 관리</div>
+  <div class="check" data-check="c6">
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">시술 후 첫 MRI는 언제이고, 이후 주기는 어떻게 되나요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">호르몬 수치 검사와 시야 검사는 어떤 주기로 병행하나요?</span></span></label>
+    <label class="ci"><input type="checkbox"><span class="ci-body"><span class="ci-txt">감염이나 사고 등 응급 상황에서 약 조절이 필요한 기준은?</span></span></label>
+  </div>
+
+  <div class="tools">
+    <button class="btn" onclick="window.print()">전체 인쇄</button>
+    <button class="btn" data-reset="c6">체크 초기화</button>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="panel" id="p7" role="tabpanel" aria-labelledby="t7" hidden>
   <h2>추가로 챙길 것</h2>
   <p class="lead">진료 이후 실제로 움직일 때 필요한 항목</p>
 
@@ -360,15 +647,15 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
     </div>
     <div class="card">
       <h3>2차 소견</h3>
-      <p>신경외과 · 내분비내과 · 방사선종양학과가 함께 보는 협진 체계를 갖춘 병원을 미리 알아두세요. 담당의에게 소견서 발급을 요청하면 절차가 수월합니다.</p>
+      <p>신경외과 · 내분비내과 · 방사선종양학과가 함께 보는 협진 체계를 갖춘 병원을 알아두세요. 담당의에게 소견서 발급을 요청하면 절차가 수월합니다.</p>
     </div>
     <div class="card">
-      <h3>시술 전 준비</h3>
-      <p>시야검사, 혈액검사 등 사전 검사 일정과 비용·보험 적용 범위를 확인합니다. 방사선종양학과 협진 예약이 별도로 필요한지도 함께 확인하세요.</p>
+      <h3>시술 전 검사</h3>
+      <p>시야검사와 혈액검사는 시술 전 기준선 확보 목적이 큽니다. 나중에 시신경 기능이나 호르몬 수치가 변했을 때 비교할 대조군이 되므로, 빠뜨리지 않는 것이 좋습니다.</p>
     </div>
     <div class="card">
-      <h3>업무·생활 조율</h3>
-      <p>회복 기간 동안 필요한 휴가나 근무 조정 범위를 가늠해 두고, 가족의 지원이 필요한 구간을 미리 공유해 두면 부담이 줄어듭니다.</p>
+      <h3>업무 · 생활 조율</h3>
+      <p>당일 종일 일정이므로 하루 휴가가 필요합니다. 시술 후 며칠간 피로나 두통이 있을 수 있으니 여유를 두고 일정을 잡으세요.</p>
     </div>
     <div class="card">
       <h3>장기 모니터링</h3>
@@ -381,268 +668,59 @@ h2{font-size:20px;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
   </div>
 
   <div class="note">
-    <strong>이 대시보드는 진료 준비용 정리 자료입니다.</strong> 진단과 치료 결정은 영상과 병력을 직접 확인한 담당 의료진의 판단을 따르세요. 여기 적힌 일반적인 설명이 실제 소견과 다를 경우, 언제나 담당의의 설명이 우선입니다.
+    <strong>이 대시보드는 진료 준비용 정리 자료입니다.</strong> 여기 담긴 내용은 일반적인 의학 정보와 병원 공개 자료를 정리한 것으로, 개별 진단이나 치료 판단이 아닙니다. 진단과 치료 결정은 영상과 병력을 직접 확인한 담당 의료진의 판단을 따르세요. 설명이 실제 소견과 다를 경우 언제나 담당의의 설명이 우선입니다.
   </div>
 </section>
 
 </main>
 
 <script>
-const dashboard = {
-  statusCards: [
-    { label: '수술 후 경과', value: '5년' },
-    { label: '잔존 종양', value: '크기 증가 확인', tone: 'warn' },
-    { label: '권고 방향', value: '방사선수술 검토', tone: 'act' },
-    { label: '현재 치료', value: '호르몬 대체요법 지속' }
-  ],
-  tabs: [
-    { id: 'p1', title: '치료 경과' },
-    { id: 'p2', title: '검사 방법' },
-    { id: 'p3', title: '치료 옵션' },
-    { id: 'p4', title: '고민할 것' },
-    { id: 'p5', title: '진료 질문' },
-    { id: 'p6', title: '추가 검토' }
-  ],
-  timeline: [
-    { when: '0Y · 수술', what: '뇌하수체 종양 절제 수술 시행', note: '혈관에 인접한 부위는 제거하지 못하고 잔존 — 추적관찰 대상으로 남김' },
-    { when: '0Y~ · 약물', what: '호르몬 대체요법 시작', note: '수술 이후 호르몬제 복용을 현재까지 지속 중' },
-    { when: '1Y–4Y · 관찰', what: '정기 MRI 추적관찰', note: '잔존 종양의 크기 변화를 주기적으로 확인' },
-    { when: '5Y · 오늘', what: 'MRI 재촬영 — 잔존 종양 크기 증가 확인', note: '시신경에 가까워지기 전에 방사선수술을 시행하는 방향이 제시됨', current: true },
-    { when: 'NEXT · 결정', what: '치료 방식 · 시점 결정 단계', note: '방사선수술 종류 선택, 2차 소견 여부, 시행 시기를 정하는 구간' }
-  ],
-  options: [
-    {
-      name: '감마나이프', tag: '1회 시행', tagType: 'a', details: [
-        { label: '방식', text: '여러 방향에서 감마선을 한 지점에 집중 조사. 통상 1회로 마무리' },
-        { label: '장점', text: '절개 없는 비침습적 시술, 당일 시행 가능, 주변 정상 조직 손상을 최소화' },
-        { label: '단점', text: '시신경과 거리가 가까우면 위험도가 올라가 적용이 제한될 수 있음. 효과가 나타나기까지 수개월~수년 소요' }
-      ]
-    },
-    {
-      name: '사이버나이프', tag: '분할 가능', tagType: 'a', details: [
-        { label: '방식', text: '로봇팔이 위치를 추적하며 방사선을 조사. 1회 또는 여러 회로 나눠 시행 가능' },
-        { label: '장점', text: '실시간 위치 보정으로 정밀 조사, 분할 시행이 가능해 시신경 인접 상황에서도 선택지가 됨' },
-        { label: '단점', text: '여러 회 통원이 필요할 수 있음, 1회당 조사 선량은 감마나이프보다 낮음' }
-      ]
-    },
-    {
-      name: '분할 방사선치료', tag: '수 주 소요', tagType: 'a', details: [
-        { label: '방식', text: '총 선량을 여러 회에 나눠 조사. 수 주에 걸쳐 진행' },
-        { label: '장점', text: '시신경처럼 방사선에 민감한 구조물이 가까울 때 안전 여유를 확보하기 유리' },
-        { label: '단점', text: '치료 기간이 길고 통원 부담이 큼, 일상·업무 일정 조율 필요' }
-      ]
-    },
-    {
-      name: '재수술', tag: '침습적', tagType: 'b', details: [
-        { label: '방식', text: '잔존 종양의 추가 절제를 시도' },
-        { label: '장점', text: '성공 시 종양 부피를 즉각적으로 줄일 수 있음' },
-        { label: '단점', text: '이번 잔존 부위는 혈관 인접으로 1차 수술에서도 제거하지 못한 위치. 수술 위험과 회복 부담이 큼' }
-      ]
-    },
-    {
-      name: '관찰 지속', tag: '시기 위험', tagType: 'b', details: [
-        { label: '방식', text: '치료 없이 MRI 추적관찰을 이어감' },
-        { label: '장점', text: '당장의 시술 위험이 없고 비침습적' },
-        { label: '단점', text: '이미 성장이 확인된 상태이므로, 시신경 침범 전에 치료할 수 있는 시점을 놓칠 위험' }
-      ]
-    }
-  ],
-  checklists: {
-    c4: [
-      { text: '종양과 시신경 사이에 남은 거리 파악', sub: '치료 방식 선택의 가장 큰 기준' },
-      { text: '1회 시술과 분할 치료 중 생활 여건에 맞는 쪽 판단', sub: '통원 횟수, 회복 기간, 업무 일정 고려' },
-      { text: '시술 후 호르몬 기능이 추가로 떨어질 가능성 확인', sub: '이미 호르몬제를 복용 중이므로 어느 축이 영향받는지 확인 필요' },
-      { text: '지금 시행할지, 조금 더 관찰할지 비교', sub: '각 선택의 위험과 이득을 담당의에게 수치로 요청' },
-      { text: '2차 소견을 받을지 결정', sub: '불신이 아니라 확인 차원 — 큰 결정 앞에서는 일반적인 절차' },
-      { text: '회복 기간과 업무·은퇴 계획의 조율', sub: '필요한 휴가나 근무 조정 범위를 미리 가늠' },
-      { text: '비용과 실손보험 적용 범위 확인', sub: '시술 종류에 따라 부담이 달라짐' }
-    ],
-    c5: [
-      { heading: '영상 결과' },
-      { text: '현재 종양 크기와 시신경까지의 거리는 몇 mm인가요?' },
-      { text: '이전 검사 대비 얼마나 커졌고, 성장 속도는 빠른 편인가요?' },
-      { text: '판독 소견서 사본과 영상 자료(CD)를 받을 수 있을까요?' },
-      { heading: '치료 방식' },
-      { text: '이 병원에서 시행 가능한 방사선수술 종류는 무엇인가요?' },
-      { text: '제 경우에는 어떤 방식을 권하시는지, 그 근거는 무엇인가요?' },
-      { text: '시술 목표는 종양 소실인가요, 성장 억제인가요?' },
-      { text: '효과가 확인되기까지 얼마나 걸리나요?' },
-      { heading: '시기와 위험' },
-      { text: '지금 시행하는 것과 몇 개월 더 관찰하는 것의 위험 차이는?' },
-      { text: '시술로 인해 시신경이나 정상 뇌하수체가 영향받을 확률은?' },
-      { text: '호르몬 기능이 추가로 떨어질 가능성과 대비 방법은?' },
-      { text: '2차 소견을 받아보는 게 좋을 상황인가요?' },
-      { heading: '일정과 이후 관리' },
-      { text: '시술 전 필요한 추가 검사(시야검사, 혈액검사 등)는 무엇인가요?' },
-      { text: '입원이 필요한가요? 회복 기간과 업무 복귀 시점은?' },
-      { text: '시술 후 MRI와 호르몬 검사는 어떤 주기로 하나요?' },
-      { text: '감염이나 사고 등 응급 상황에서 약 조절이 필요한 기준은?' }
-    ]
-  }
-};
+const ticks=document.getElementById('ticks');
+for(let i=0;i<61;i++){const d=document.createElement('div');d.className='tick'+(i%12===0?' major':'');ticks.appendChild(d);}
 
-function renderStatusCards() {
-  const container = document.getElementById('status-cards');
-  if (!container) return;
-  container.innerHTML = dashboard.statusCards.map(card => {
-    const toneClass = card.tone ? ` ${card.tone}` : '';
-    return `
-      <div class="stat">
-        <div class="stat-k">${card.label}</div>
-        <div class="stat-v${toneClass}">${card.value}</div>
-      </div>`;
-  }).join('');
-}
-
-function renderTabs() {
-  const tabList = document.getElementById('tab-list');
-  if (!tabList) return;
-  tabList.innerHTML = dashboard.tabs.map((tab, index) => `
-    <button type="button" class="tab" role="tab" aria-selected="${index === 0}" aria-controls="${tab.id}" id="t${index + 1}">${tab.title}</button>
-  `).join('');
-}
-
-function renderTimeline() {
-  const container = document.getElementById('timeline');
-  if (!container) return;
-  container.innerHTML = dashboard.timeline.map(item => `
-    <div class="tl-item${item.current ? ' now' : ''}">
-      <div class="tl-when">${item.when}</div>
-      <div class="tl-what">${item.what}</div>
-      <div class="tl-note">${item.note}</div>
-    </div>
-  `).join('');
-}
-
-function renderOptions() {
-  const container = document.getElementById('options');
-  if (!container) return;
-  container.innerHTML = dashboard.options.map((option, index) => `
-    <div class="opt">
-      <button type="button" class="opt-btn" aria-expanded="false" aria-controls="o${index + 1}">
-        <span class="opt-name">${option.name}</span>
-        <span class="opt-tag ${option.tagType}">${option.tag}</span>
-        <span class="chev">▾</span>
-      </button>
-      <div class="opt-body" id="o${index + 1}" hidden>
-        ${option.details.map(detail => `
-          <div class="opt-row">
-            <span class="opt-lab ${detail.label === '장점' ? 'plus' : detail.label === '단점' ? 'minus' : 'how'}">${detail.label}</span>
-            <div>${detail.text}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderChecklist(group) {
-  const container = document.getElementById(`checklist-${group}`);
-  if (!container) return;
-
-  if (group === 'c4') {
-    container.innerHTML = dashboard.checklists.c4.map(item => `
-      <label class="ci">
-        <input type="checkbox">
-        <span class="ci-body">
-          <span class="ci-txt">${item.text}</span>
-          <span class="ci-sub">${item.sub}</span>
-        </span>
-      </label>
-    `).join('');
-  } else {
-    let html = '';
-    dashboard.checklists.c5.forEach(item => {
-      if (item.heading) {
-        html += `<div class="group-h">${item.heading}</div>`;
-      } else {
-        html += `
-          <label class="ci">
-            <input type="checkbox">
-            <span class="ci-body"><span class="ci-txt">${item.text}</span></span>
-          </label>`;
-      }
-    });
-    container.innerHTML = html;
-  }
-}
-
-function wireTabs() {
-  const tabs = Array.from(document.querySelectorAll('.tab'));
-  const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
-
-  tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => selectTab(index, tabs, panels));
-    tab.addEventListener('keydown', event => {
-      const target = event.key === 'ArrowRight'
-        ? (index + 1) % tabs.length
-        : event.key === 'ArrowLeft'
-          ? (index - 1 + tabs.length) % tabs.length
-          : null;
-
-      if (target !== null) {
-        event.preventDefault();
-        selectTab(target, tabs, panels);
-        tabs[target].focus();
-      }
-    });
+const tabs=[...document.querySelectorAll('.tab')];
+tabs.forEach((tab,i)=>{
+  tab.addEventListener('click',()=>select(i));
+  tab.addEventListener('keydown',e=>{
+    let n=null;
+    if(e.key==='ArrowRight')n=(i+1)%tabs.length;
+    if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;
+    if(n!==null){e.preventDefault();select(n);tabs[n].focus();}
   });
-}
-
-function selectTab(index, tabs, panels) {
-  tabs.forEach((tab, tabIndex) => {
-    const active = tabIndex === index;
-    tab.setAttribute('aria-selected', active);
-    panels[tabIndex].hidden = !active;
+});
+function select(i){
+  tabs.forEach((t,j)=>{
+    t.setAttribute('aria-selected',j===i);
+    document.getElementById(t.getAttribute('aria-controls')).hidden=(j!==i);
   });
+  tabs[i].scrollIntoView({block:'nearest',inline:'nearest'});
 }
 
-function wireAccordion() {
-  document.querySelectorAll('.opt-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') === 'true';
-      const panel = document.getElementById(btn.getAttribute('aria-controls'));
-      btn.setAttribute('aria-expanded', String(!open));
-      panel.hidden = open;
-    });
+document.querySelectorAll('.opt-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const open=btn.getAttribute('aria-expanded')==='true';
+    btn.setAttribute('aria-expanded',!open);
+    document.getElementById(btn.getAttribute('aria-controls')).hidden=open;
   });
+});
+
+function update(g){
+  const boxes=[...document.querySelectorAll('[data-check="'+g+'"] input')];
+  const done=boxes.filter(b=>b.checked).length;
+  document.querySelectorAll('[data-num="'+g+'"]').forEach(n=>n.textContent=done+' / '+boxes.length);
+  document.querySelectorAll('[data-fill="'+g+'"]').forEach(f=>f.style.width=(boxes.length?done/boxes.length*100:0)+'%');
 }
-
-function wireChecklistCounters() {
-  ['c4', 'c5'].forEach(group => {
-    const checkboxes = Array.from(document.querySelectorAll(`#checklist-${group} input[type="checkbox"]`));
-    const resetButtons = document.querySelectorAll(`[data-reset="${group}"]`);
-
-    function update() {
-      const done = checkboxes.filter(box => box.checked).length;
-      const total = checkboxes.length;
-      const width = total ? (done / total) * 100 : 0;
-      document.querySelectorAll(`[data-num="${group}"]`).forEach(el => el.textContent = `${done} / ${total}`);
-      document.querySelectorAll(`[data-fill="${group}"]`).forEach(el => el.style.width = `${width}%`);
-    }
-
-    checkboxes.forEach(box => box.addEventListener('change', update));
-    resetButtons.forEach(button => button.addEventListener('click', () => {
-      checkboxes.forEach(box => { box.checked = false; });
-      update();
-    }));
-    update();
+['c4','c5','c6'].forEach(g=>{
+  document.querySelectorAll('[data-check="'+g+'"] input').forEach(b=>b.addEventListener('change',()=>update(g)));
+  update(g);
+});
+document.querySelectorAll('[data-reset]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const g=btn.dataset.reset;
+    document.querySelectorAll('[data-check="'+g+'"] input').forEach(b=>b.checked=false);
+    update(g);
   });
-}
-
-function initDashboard() {
-  renderStatusCards();
-  renderTabs();
-  renderTimeline();
-  renderOptions();
-  renderChecklist('c4');
-  renderChecklist('c5');
-  wireTabs();
-  wireAccordion();
-  wireChecklistCounters();
-}
-
-initDashboard();
+});
 </script>
 </body>
 </html>
